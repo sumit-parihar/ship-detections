@@ -120,6 +120,7 @@ def load_model():
                 filename=HF_FILENAME,
                 repo_type="model",
                 token=hf_token,
+                cache_dir="/tmp"
             )
         return YOLO(path)
     except Exception as e:
@@ -282,8 +283,8 @@ def draw_boxes(img_arr, dets, show_lbl=True, show_conf=True):
     img  = Image.fromarray(img_arr).convert("RGB")
     draw = ImageDraw.Draw(img)
     try:
-        font = ImageFont.truetype("arial.ttf", 14)
-    except OSError:
+        font = ImageFont.truetype("DejaVuSans.ttf", 14)
+    except:
         font = ImageFont.load_default()
 
     for i, d in enumerate(dets):
@@ -460,35 +461,8 @@ if uploaded:
                 "If upload fails, use the local path input below."
             )
 
-st.markdown("### Or Enter Local File Path (for files > 500 MB)")
-col_p, col_s = st.columns([3, 1])
-with col_p:
-    local_path = st.text_input(
-        "Absolute path to your SAR image",
-        placeholder="/home/user/sentinel1.tif  or  C:\\Downloads\\scene.tiff",
-    )
-with col_s:
-    st.markdown("<br>", unsafe_allow_html=True)
-    if local_path:
-        if os.path.isfile(local_path):
-            mb = os.path.getsize(local_path) / 1024**2
-            st.success(f"✅ {mb:.0f} MB")
-        else:
-            st.error("❌ Not found")
-
-st.markdown("---")
-
-# ─── Build file list ──────────────────────────────────────────────────────────
-class _Local:
-    def __init__(self, p):
-        self.name     = os.path.basename(p)
-        self.path     = p
-        self.is_local = True
-        self.size     = os.path.getsize(p)
-
 files = list(uploaded or [])
-if local_path and os.path.isfile(local_path):
-    files.append(_Local(local_path))
+
 
 # ─── Inference Loop ───────────────────────────────────────────────────────────
 if not files:
@@ -506,7 +480,7 @@ else:
         fname    = fobj.name
         ext      = fname.rsplit(".", 1)[-1].lower()
         is_tiff  = ext in ("tif", "tiff")
-        is_local = getattr(fobj, "is_local", False)
+        is_local = False
         size_mb  = getattr(fobj, "size", 0) / 1024**2
 
         if len(files) > 1:
