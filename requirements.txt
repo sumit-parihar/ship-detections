@@ -4,3 +4,4 @@ huggingface_hub
 opencv-python-headless
 numpy
 Pillow
+rasterio
