@@ -1,8 +1,6 @@
-ultralytics==8.2.0
-streamlit==1.35.0
-huggingface_hub==0.23.0
-rasterio
+ultralytics
+streamlit
+huggingface_hub
+opencv-python-headless
 numpy
-Pillow==10.3.0
-pandas==2.2.2
-opencv-python-headless==4.9.0.80
+Pillow
