@@ -1,0 +1,11 @@
+[server]
+maxUploadSize = 2048
+headless = true
+enableXsrfProtection = false
+
+[theme]
+base = "dark"
+primaryColor = "#00c2ff"
+backgroundColor = "#080e1a"
+secondaryBackgroundColor = "#0d1625"
+textColor = "#cdd9e8"
