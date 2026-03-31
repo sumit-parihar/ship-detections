@@ -108,11 +108,11 @@ st.markdown("""
 def load_model():
     try:
         hf_token = os.getenv("HF_TOKEN")
-        try:
-            hf_token = st.secrets.get("HF_TOKEN", None)
-        except Exception:
-            pass
-        hf_token = hf_token or os.environ.get("HF_TOKEN", None)
+        # try:
+        #     hf_token = st.secrets.get("HF_TOKEN", None)
+        # except Exception:
+        #     pass
+        # hf_token = hf_token or os.environ.get("HF_TOKEN", None)
 
         with st.spinner("⏳ Loading model from HuggingFace…"):
             path = hf_hub_download(
